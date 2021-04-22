@@ -30,3 +30,4 @@ connect().then(async () => {
     app.listen(process.env.PORT || 3000);
     console.log("Connected and listening!")
 })
+    .catch(err => console.error(err))
