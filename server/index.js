@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const { response } = require('express');
-let models, { connect } = require('../database/model')
+let { connect, methods } = require('../database/model')
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -13,6 +13,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
     res.send('<h1>Setup</h1>')
+})
+
+app.get('/read', async (req, res) => {
+    const response = await methods.read()
+    res.send(response)
 })
 
 const handleInboundSms = (req, res) => {
