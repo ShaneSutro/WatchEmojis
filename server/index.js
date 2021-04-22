@@ -23,6 +23,7 @@ app.get('/read', async (req, res) => {
 const handleInboundSms = (req, res) => {
     const params = Object.assign(req.query, req.body)
     console.log(params)
+    methods.add(params.text)
     res.status(200).send()
 }
 

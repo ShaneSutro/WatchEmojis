@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { Line } = require('./db')
+const emojiRegex = require('emoji-regex');
+const regex = emojiRegex();
 
 const connect = () => {
     return mongoose.connect(process.env.MONGODB_URI)
@@ -10,14 +12,20 @@ const methods = {
         const data = await Line.find({})
         console.log(data)
     },
-    
-    add : async (document) => {
-        const doc = Line.create(document);
-        return doc
+
+    add: async (string) => {
+        const all = string.match(regex)
+        console.log(all.length)
+        Line.find({})
+    },
+
+    findEmojis: (string) => {
+        const all = string.match(regex);
+        return all
     }
 }
 
-module.exports = { 
+module.exports = {
     connect,
     Line,
     methods
