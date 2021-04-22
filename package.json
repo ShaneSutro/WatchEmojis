@@ -1,0 +1,32 @@
+{
+  "name": "watchemojis",
+  "version": "1.0.0",
+  "description": "Push emojis to my watch face!",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SonicRift/WatchEmojis.git"
+  },
+  "author": "Shane Sutro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SonicRift/WatchEmojis/issues"
+  },
+  "homepage": "https://github.com/SonicRift/WatchEmojis#readme",
+  "dependencies": {
+    "@vonage/server-sdk": "^2.10.7",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.5.0",
+    "mongoose": "^5.12.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
