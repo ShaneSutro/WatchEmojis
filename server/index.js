@@ -39,7 +39,8 @@ app.delete('/delete', async (req, res) => {
 
 const handleInboundSms = async (req, res) => {
     const params = Object.assign(req.query, req.body)
-    const code = await methods.add(params.text)
+    console.log('Incoming request:', params)
+    const code = await methods.add(params.text || params.Text)
     res.status(code).send()
 }
 
