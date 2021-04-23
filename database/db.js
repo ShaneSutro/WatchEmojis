@@ -8,8 +8,16 @@ const watchSchema = new mongoose.Schema({
     lastUpdated: Date
 })
 
+const counterSchema = new mongoose.Schema({
+    name: String,
+    count: Number,
+    lastUpdated: Date
+})
+
+const Counter = mongoose.model('Counter', counterSchema);
 const Line = mongoose.model('Line', watchSchema);
 
 module.exports = {
-    Line
+    Line,
+    Counter
 }
