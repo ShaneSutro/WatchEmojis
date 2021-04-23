@@ -12,7 +12,7 @@ const connect = () => {
 
 const methods = {
     read : async (line, string) => {
-        const data = await Line.find({})
+        const data = await Line.findOne({ name: 'display' })
         return data;
     },
 
