@@ -84,6 +84,7 @@ const sendToWatch = async (fields) => {
         // percent: 82.5 // Dial outer gauge
     }
 
+    console.log(process.env.GLANCE_URL)
     fetch(process.env.GLANCE_URL, {
         method: 'POST',
         body: JSON.stringify(data),
