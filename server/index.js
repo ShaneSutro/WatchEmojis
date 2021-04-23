@@ -20,13 +20,18 @@ app.get('/read', async (req, res) => {
     res.send(response)
 })
 
+app.get('/send', async (req, res) => {
+    const response = await methods.updateDisplay()
+    res.send(response)
+})
+
 app.post('/new', async (req, res) => {
     const document = req.body
     const response = await methods.create(document)
     res.send(response)
 })
 
-app.post('/delete', async (req, res) => {
+app.delete('/delete', async (req, res) => {
     const criteria = req.body;
     const dbres = await methods.delete(criteria);
     res.send(dbres);
