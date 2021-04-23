@@ -20,11 +20,22 @@ app.get('/read', async (req, res) => {
     res.send(response)
 })
 
-const handleInboundSms = (req, res) => {
+app.post('/new', async (req, res) => {
+    const document = req.body
+    const response = await methods.create(document)
+    res.send(response)
+})
+
+app.post('/delete', async (req, res) => {
+    const criteria = req.body;
+    const dbres = await methods.delete(criteria);
+    res.send(dbres);
+})
+
+const handleInboundSms = async (req, res) => {
     const params = Object.assign(req.query, req.body)
-    console.log(params)
-    methods.add(params.text)
-    res.status(200).send()
+    const code = await methods.add(params.text)
+    res.status(code).send()
 }
 
 app
