@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-const { Line, Counter, User } = require('./db')
+const { Line, Counter, User } = require('./db');
 const emojiRegex = require('emoji-regex');
 const regex = emojiRegex();
-const hasha = require('hasha')
+const hasha = require('hasha');
 const fetch = require('node-fetch');
-var timeout;
-var rateLimit = 10;
+var timeout; // global setTimeout
+var rateLimit = 10; // minutes
+const plivo = require('plivo');
 
 const connect = () => {
     return mongoose.connect(process.env.MONGODB_URI)
@@ -19,8 +20,13 @@ const methods = {
 
     add: async (string, phone) => {
         const all = methods.findEmojis(string);
-        const userCanAdd = await methods.userCanAdd(phone.toString())
-        if (all && userCanAdd) {
+        if (all) {
+            const userCanAdd = await methods.userCanAdd(phone.toString())
+            if (!userCanAdd) {
+                methods.reply(phone, '⏱')
+                return 304
+            };
+            methods.reply(phone, '✅')
             methods.incrementCounter()
             const current = await Line.findOne({ name: 'display' })
             const allEmojis = methods.findEmojis(all[0].concat(current.line1, current.line2, current.line3))
@@ -48,7 +54,8 @@ const methods = {
             }
             return 201
         } else {
-            console.log("No emojis in text or user is rate limited")
+            console.log("No emojis in text")
+            methods.reply(phone, '❓')
             return 304
         }
     },
@@ -120,6 +127,11 @@ const methods = {
         const userCount = await User.count({})
         console.log(userCount)
         return userCount
+    },
+
+    reply: async (phone, message) => {
+        const client = new plivo.Client(process.env.PLIVO_AUTH, process.env.PLIVO_TOKEN)
+        client.messages.create('17209617756', phone, message)
     }
 }
 
