@@ -27,9 +27,12 @@
     "express": "^4.17.1",
     "hasha": "^5.2.2",
     "helmet": "^4.5.0",
+    "http": "*",
     "mongoose": "^5.12.5",
+    "mustache": "^4.2.0",
     "node-fetch": "^2.6.1",
-    "plivo": "^4.16.0"
+    "plivo": "^4.16.0",
+    "socket.io": "^4.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

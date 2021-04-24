@@ -9,7 +9,7 @@ var rateLimit = 10; // minutes
 const plivo = require('plivo');
 
 const connect = () => {
-    return mongoose.connect(process.env.MONGODB_URI)
+    return mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 }
 
 const methods = {
@@ -124,7 +124,7 @@ const methods = {
     },
 
     userCount: async () => {
-        const userCount = await User.count({})
+        const userCount = await User.countDocuments({})
         console.log(userCount)
         return userCount
     },
