@@ -14,10 +14,18 @@ const counterSchema = new mongoose.Schema({
     lastUpdated: Date
 })
 
+const userSchema = new mongoose.Schema({
+    hash: String,
+    lastUpdated: Date,
+    emojisSent: Number
+})
+
+const User = mongoose.model('User', userSchema);
 const Counter = mongoose.model('Counter', counterSchema);
 const Line = mongoose.model('Line', watchSchema);
 
 module.exports = {
     Line,
-    Counter
+    Counter,
+    User
 }

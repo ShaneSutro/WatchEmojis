@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/', async (req, res) => {
     let doc = await methods.read();
     let counter = await methods.getCounter();
+    let userCount = await methods.userCount();
     console.log(counter);
     page = `
     <head>
@@ -28,7 +29,8 @@ app.get('/', async (req, res) => {
             <h1 style="margin: 0">${doc.line3}</h1>
             <div style="margin: 10% 0 10% 0; font-size: 0.7rem; text-align: center;">
                 <h3 style="margin: 0">Text emojis to (720) 961-7756</h3>
-                <h3 style="margin: 0">${counter.count} emojis sent</h3>
+                <h3 style="margin: 0">${counter.count} emojis sent by</h3>
+                <h3 style="margin: 0">${userCount} users</h3>
             </div>
         </div>
     </body>
@@ -40,7 +42,7 @@ const handleInboundSms = async (req, res) => {
     let code = 400; // Default status code
     const params = Object.assign(req.query, req.body)
     console.log('Incoming request:', params)
-    code = await methods.add(params.text || params.Text)
+    code = await methods.add(params.text || params.Text, params.From)
     res.status(code).send()
 }
 
